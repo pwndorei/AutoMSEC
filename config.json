@@ -1,0 +1,6 @@
+{
+    "in" : "Path/to/Seed",
+    "out" : "",
+    "program" : "Path/to/Program/",
+    "args" : ["args1"]
+}
