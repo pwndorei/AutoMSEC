@@ -10,7 +10,7 @@ if($arch -ne "x64" -and $arch -ne "x86"){
 
 $DbgShellPath = Join-Path $PSScriptRoot "DbgShell\$arch"
 $DbgShell = Join-Path $DbgShellPath "DbgShell.exe"
-$ScriptPath = Join-Path $PSScriptRoot "debugger_$arch.ps1"
+$ScriptPath = Join-Path $PSScriptRoot "debugger.ps1"
 
 Write-Host $DbgShellPath
 Write-Host $DbgShell

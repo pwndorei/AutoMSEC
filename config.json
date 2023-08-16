@@ -1,6 +1,7 @@
 {
-    "in" : "Path/to/Seed",
+    "comment":"Write Your Path(program, inputs) in ABSOLUTE PATH",
+    "in" : "C:\\Users\\lkjui\\Desktop\\programming\\AutoMSEC\\test\\in",
     "out" : "",
-    "program" : "Path/to/Program/",
-    "args" : ["args1"]
+    "program":"test\\bin\\harness.exe",
+    "args" : ["SEEDFILE"]
 }
