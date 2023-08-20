@@ -8,6 +8,7 @@ $inputs = Get-ChildItem -Name $config.in
 Write-Host $inputs
 Write-Host "Crashed Testcases"
 for ($i = 0; $i -le $inputs.Length - 1; $i += 1){
+    $inputs[$i] = Join-Path $config.in $inputs[$i]
     $inputs[$i] = Join-Path $PSScriptRoot $inputs[$i]
     Write-Host $inputs[$i]
 }
@@ -27,8 +28,8 @@ else{
 .load $msec
 
 
-function PreRun($testcase){
-    $args_list = @()
+function Start-Debuggee($testcase){
+    $args_list = [System.Collections.ArrayList]::new()
     foreach ($arg in $config.args){
         if ($arg -eq "SEEDFILE") {$args_list.Add($testcase)}
         else {$args_list.Add($arg)}
@@ -37,8 +38,8 @@ function PreRun($testcase){
 }
 
 
-function _Run(){
-    $result = @()
+function Debug-UntilExit(){
+    $result = [System.Collections.ArrayList]::new()
     :RUN while($true){
         $events = gn
 
@@ -68,9 +69,6 @@ function _Run(){
 }
 
 
-function PostRun($outpath, $result){
+function Save-DebugOutput($outpath, $result){
     Out-File -FilePath $result
 }
-
-
-
