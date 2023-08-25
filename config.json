@@ -2,6 +2,5 @@
     "comment":"Write Your Path(program, inputs) in ABSOLUTE PATH",
     "in" : "C:\\Users\\lkjui\\Desktop\\programming\\AutoMSEC\\test\\in",
     "out" : "",
-    "program":"test\\bin\\harness.exe",
-    "args" : ["SEEDFILE"]
+    "cmdline" : "harness.exe @@ ./out"
 }
