@@ -1,6 +1,6 @@
 {
-    "comment":"Write Your Path(program, inputs) in ABSOLUTE PATH",
-    "in" : "C:\\Users\\lkjui\\Desktop\\programming\\AutoMSEC\\test\\in",
-    "out" : "",
-    "cmdline" : "harness.exe @@ ./out"
+    "in" : ".\\test\\in",
+    "out" : ".\\test\\out",
+    "args" : " @@ ./test/out",
+    "executable":".\\test\\harness.exe"
 }
