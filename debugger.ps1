@@ -34,7 +34,7 @@ function Save-Exception($Exception)
     $ExceptionCount += 1
 }
 
-$Debuggee = (Start-Process -PassThru -FilePath (Join-Path $PSScriptRoot $config.executable) -WindowStyle Hidden -ArgumentList $arg -WorkingDirectory $PSScriptRoot)
+$Debuggee = (Start-Process -PassThru -FilePath $config.executable -WindowStyle Hidden -ArgumentList $arg -WorkingDirectory $PSScriptRoot)
 
 Connect-Process -Id $Debuggee.Id
 
