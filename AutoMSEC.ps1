@@ -51,7 +51,8 @@ foreach($input in $inputs)
     $arg = $config.args.replace('@@', $input.FullName)
     $arg | Out-File -FilePath "./args.txt"
     $dpid = (Start-Process -FilePath $DbgShell -PassThru -ArgumentList $ScriptPath -NoNewWindow).Id
-    Wait-Process -Id $dpid
+    Wait-Process -Id $dpid -Timeout 10
+	Stop-Process -Id $dpid -Force
     $results = Get-ChildItem -Path (Join-Path $PSScriptRoot "result\")
 
     foreach($r in $results)

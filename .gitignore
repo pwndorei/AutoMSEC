@@ -2,3 +2,4 @@ test/*
 result/*
 args.txt
 DbgShell/*/sym
+config.json
