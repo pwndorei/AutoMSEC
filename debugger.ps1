@@ -8,6 +8,10 @@ $ResultPath = Join-Path $PSScriptRoot "result\"
 $config = Get-Content -Path (Join-Path $PSScriptRoot "config.json") | ConvertFrom-Json
 $arg = Get-Content -Path (Join-Path $PSScriptRoot "args.txt")
 
+Push-Location
+
+Set-Location -Path $PSScriptRoot
+
 function Check-DumpLevel($Class, $CurLevel)
 {
     begin
@@ -65,6 +69,8 @@ function Save-Exception($Exception, $ExceptionCount)
 
 
 $Debuggee = (Start-Process -PassThru -FilePath $config.executable -WindowStyle Hidden -ArgumentList $arg -WorkingDirectory $PSScriptRoot)
+
+$Debuggee.Id | Out-File -FilePath "pid.txt"
 
 Connect-Process -Id $Debuggee.Id
 

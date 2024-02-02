@@ -89,31 +89,30 @@ if($config.args.IndexOf("@@") -eq -1){ #need args input
     Exit
 }
 
+Write-Host ("Total {0} inputs" -f $inputs.length)
+
 foreach($input in $inputs)
 {
-    if($input.Extension.length -ne 0)
-    {
-        continue
-    }
     $arg = $config.args.replace('@@', $input.FullName)
     $arg | Out-File -FilePath (Join-Path $PSScriptRoot ".\args.txt")
-    $debuggee = (Start-Process -FilePath $DbgShell -PassThru -ArgumentList $ScriptPath -NoNewWindow)
+    $debugger = (Start-Process -FilePath $DbgShell -PassThru -ArgumentList $ScriptPath -WindowStyle Hidden)
     try
     {
-        Wait-Process -Id $debuggee.id -Timeout 10
+        Wait-Process -Id $debugger.id -Timeout 6 -ErrorAction Stop
         $results = Get-ChildItem -Path (Join-Path $PSScriptRoot "result\") -Filter "*.json"
         Move-Result -CurInput $input -Source $results
     }
-    catch [System.Diagnostics.Process]
+    catch [System.TimeoutException]
     {
         Write-Verbose "Debuggee Timeout"
-        Stop-Process -Id $debuggee.id -Force
-
-        #To Do: Collect timeout cases
-        
+        $debuggee = Get-Content "pid.txt"
+        Write-Host $debuggee
+        Stop-Process -Id $debuggee -Force
+        Stop-Process -Id $debugger.id -Force
     }
     finally
     {
+        Remove-Item -Path "pid.txt"
         $tmp = (Get-ChildItem -Path (Join-Path $PSScriptRoot "result"))
         if($tmp.length -ne 0)
         {
