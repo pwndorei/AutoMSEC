@@ -3,3 +3,4 @@ result/*
 args.txt
 DbgShell/*/sym
 config.json
+pid.txt

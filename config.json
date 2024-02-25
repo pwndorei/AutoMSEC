@@ -1,6 +1,7 @@
 {
-    "in" : ".\\test\\in",
-    "out" : ".\\test\\out",
-    "args" : " @@ ./test/out",
-    "executable":".\\test\\harness.exe"
+    "in" : "D:\\BugHunting\\ezPDF\\crash\\crash0",
+    "out" : "D:\\BugHunting\\ezPDF\\msec_out0",
+    "args" : "@@",
+    "executable":"D:\\BugHunting\\ezPDF\\install\\ezPDFEditor\\ezPDFEditor.exe",
+    "dump": false
 }
