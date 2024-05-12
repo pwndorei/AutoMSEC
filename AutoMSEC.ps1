@@ -91,14 +91,19 @@ if($config.args.IndexOf("@@") -eq -1){ #need args input
 
 Write-Host ("Total {0} inputs" -f $inputs.length)
 
+$i = 0
+
 foreach($input in $inputs)
 {
+    $prog = $i / $inputs.Length * 100
+    Write-Progress -Activity "AutoMSEC" -PercentComplete $prog
+    $i += 1
     $arg = $config.args.replace('@@', $input.FullName)
     $arg | Out-File -FilePath (Join-Path $PSScriptRoot ".\args.txt")
-    $debugger = (Start-Process -FilePath $DbgShell -PassThru -ArgumentList $ScriptPath -WindowStyle Hidden)
+    $debugger = (Start-Process -FilePath $DbgShell -PassThru -ArgumentList $ScriptPath -NoNewWindow)
     try
     {
-        Wait-Process -Id $debugger.id -Timeout 6 -ErrorAction Stop
+        Wait-Process -Id $debugger.id -Timeout 10 -ErrorAction Stop
         $results = Get-ChildItem -Path (Join-Path $PSScriptRoot "result\") -Filter "*.json"
         Move-Result -CurInput $input -Source $results
     }
