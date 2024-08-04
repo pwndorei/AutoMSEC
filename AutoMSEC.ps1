@@ -40,8 +40,13 @@ function Move-Result($Source, $CurInput)
         if($config.dump -and (Test-Path -Path $r.FullName.replace(".json", ".dmp")))
         {
             $dst = Join-Path $Destination ($CurInput.Basename + "_" + $r.Basename + ".dmp")
-
-            Move-Item -Force -Destination $dst $r.FullName.replace(".json", ".dmp")
+			if((Get-ChildItem -Path $Destination -Filter "*.dmp").length -eq 0){
+				Move-Item -Force -Destination $dst $r.FullName.replace(".json", ".dmp")
+			}
+			else{
+				Get-Item -Path $r.FullName.replace(".json", ".dmp") | Remove-Item
+			}
+            
         }
 
     }
